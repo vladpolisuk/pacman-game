@@ -256,6 +256,11 @@ const main = async () => {
                     tablets.splice(i, 1);
                     game.stage.remove(tablet)
 
+                    setTimeout(() => {
+                        tablets.push(tablet);
+                        game.stage.add(tablet)
+                    }, 15000)
+
                     blueGhostsTimeout = setTimeout(() => {
                         ghosts.forEach((ghost) => {
                             ghost.animations = ghost.originalColor;
@@ -270,6 +275,11 @@ const main = async () => {
 
                 tablets.splice(i, 1);
                 game.stage.remove(tablet)
+
+                setTimeout(() => {
+                    tablets.push(tablet);
+                    game.stage.add(tablet)
+                }, 15000)
 
                 ghosts.forEach((ghost) => {
                     ghost.originalColor = ghost.animations;
