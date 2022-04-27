@@ -30,3 +30,7 @@ export const getRandomFrom = (...array) => {
     const index = Math.floor(Math.random() * array.length);
     return array[index]
 }
+
+export const reloadPage = (timer) => {
+    return setTimeout(() => document.location.reload(), timer)
+}

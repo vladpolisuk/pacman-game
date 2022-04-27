@@ -2,12 +2,13 @@ import Game from './Game.js';
 import { loadImage, loadJSON } from './Loader.js';
 import Cinematic from './Cinematic.js';
 import Sprite from './Sprite.js';
-import { getRandomFrom, haveCollision } from './Additional.js';
+import { getRandomFrom, haveCollision, reloadPage } from './Additional.js';
 import DisplayObject from './DisplayObject.js';
 
 const scale = 2.3;
 let points = 0;
 let blueGhostsTimeout;
+let refreshTimeout;
 
 const main = async () => {
     const game = new Game({
@@ -118,8 +119,8 @@ const main = async () => {
     game.update = () => {
         if (game.gameOver) {
             const title = document.querySelector('#title');
-            title.textContent = `Игра окончена`;
-            setTimeout(() => document.location.reload(), 5000)
+            title.textContent = `Вы проиграли`;
+            if (!refreshTimeout) refreshTimeout = reloadPage(6000)
 
             if (!game.isStartedTimer) {
                 game.startTimer((timer) => {
@@ -130,7 +131,7 @@ const main = async () => {
         } else if (game.gameWin) {
             const title = document.querySelector('#title');
             title.textContent = `Вы победили`;
-            setTimeout(() => document.location.reload(), 10000)
+            if (!refreshTimeout) refreshTimeout = reloadPage(11000)
 
             if (!game.isStartedTimer) {
                 game.startTimer((timer) => {
@@ -222,7 +223,6 @@ const main = async () => {
             }
 
             if (pacman.play && ghost.play && haveCollision(pacman, ghost)) {
-                console.log('touch');
                 if (ghost.isBlue) {
                     points += 500;
                     ghost.play = false;
