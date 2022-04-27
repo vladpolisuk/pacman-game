@@ -119,7 +119,7 @@ const main = async () => {
         if (game.gameOver) {
             const title = document.querySelector('#title');
             title.textContent = `Игра окончена`;
-            setTimeout(() => document.location.reload(), 6000)
+            setTimeout(() => document.location.reload(), 5000)
 
             if (!game.isStartedTimer) {
                 game.startTimer((timer) => {
@@ -130,7 +130,7 @@ const main = async () => {
         } else if (game.gameWin) {
             const title = document.querySelector('#title');
             title.textContent = `Вы победили`;
-            setTimeout(() => document.location.reload(), 11000)
+            setTimeout(() => document.location.reload(), 10000)
 
             if (!game.isStartedTimer) {
                 game.startTimer((timer) => {
