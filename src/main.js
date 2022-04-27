@@ -48,7 +48,7 @@ const main = async () => {
         height: 13 * scale,
         animations: atlas.pacman,
         speedX: 2,
-        // debug: true
+        debug: false
     })
 
     pacman.start('right');
@@ -59,10 +59,10 @@ const main = async () => {
                 image,
                 x: atlas.position[color].x * scale,
                 y: atlas.position[color].y * scale,
-                width: 13 * scale,
-                height: 13 * scale,
+                width: 14 * scale,
+                height: 14 * scale,
                 animations: atlas[`${color}Ghost`],
-                // debug: true
+                debug: false
             })
 
             ghost.start(atlas.position[color].direction)
@@ -77,7 +77,7 @@ const main = async () => {
         y: wall.y * scale,
         width: wall.width * scale,
         height: wall.height * scale,
-        // debug: true
+        debug: false
     }))
 
     const leftPortal = new DisplayObject({
@@ -85,7 +85,7 @@ const main = async () => {
         y: atlas.position.leftPortal.y * scale,
         width: atlas.position.leftPortal.width * scale,
         height: atlas.position.leftPortal.height * scale,
-        // debug: true
+        debug: false
     })
 
     const rightPortal = new DisplayObject({
@@ -93,7 +93,7 @@ const main = async () => {
         y: atlas.position.rightPortal.y * scale,
         width: atlas.position.rightPortal.width * scale,
         height: atlas.position.rightPortal.height * scale,
-        // debug: true
+        debug: false
     })
 
     const tablets = atlas.position.tablets
@@ -223,6 +223,7 @@ const main = async () => {
             }
 
             if (pacman.play && ghost.play && haveCollision(pacman, ghost)) {
+                console.log('touch');
                 if (ghost.isBlue) {
                     points += 500;
                     ghost.play = false;
@@ -261,6 +262,7 @@ const main = async () => {
                             ghost.animations = ghost.originalColor;
                             ghost.isBlue = false;
                             ghost.start(ghost.animation.name);
+                            blueGhostsTimeout = null;
                         })
                     }, 8000)
 
@@ -282,6 +284,7 @@ const main = async () => {
                         ghost.animations = ghost.originalColor;
                         ghost.isBlue = false;
                         ghost.start(ghost.animation.name);
+                        blueGhostsTimeout = null;
                     })
                 }, 8000)
 
