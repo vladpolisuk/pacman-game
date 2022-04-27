@@ -9,6 +9,7 @@ export default class Game {
         this.gameOver = false;
         this.timer = 0;
         this.isStartedTimer = false;
+        this.timeout = null;
         this.canvas.width = props.width ?? 50;
         this.canvas.height = props.height ?? 50;
         this.background = props.background ?? 'black';
@@ -44,9 +45,13 @@ export default class Game {
         this.timer = endTime;
         this.isStartedTimer = true;
 
-        setInterval(() => {
+        this.timeout = setInterval(() => {
             action(this.timer)
             this.timer -= 1;
+            if (this.timer === 0) {
+                clearInterval(this.timeout)
+                this.timeout = null;
+            }
         }, 1000);
     }
 }
